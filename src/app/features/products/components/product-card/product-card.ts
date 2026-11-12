@@ -1,13 +1,13 @@
 import { Component, input, output } from '@angular/core';
-import { Product } from '../../../../core/models/product';
+import { Product } from '@/core/models/product';
 
 @Component({
-  selector: 'app-produto-card',
+  selector: 'app-product-card',
   imports: [],
-  templateUrl: './produto-card.html',
-  styleUrl: './produto-card.css',
+  templateUrl: './product-card.html',
+  styleUrl: './product-card.css',
 })
-export class ProdutoCard {
+export class ProductCard {
   product = input.required<Product>();
   removeItemEvent = output<number>();
 
