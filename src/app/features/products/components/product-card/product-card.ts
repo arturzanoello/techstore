@@ -1,17 +1,18 @@
 import { Component, input, output } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
 import { Product } from '@/core/models/product';
 
 @Component({
   selector: 'app-product-card',
-  imports: [],
+  imports: [CurrencyPipe],
   templateUrl: './product-card.html',
   styleUrl: './product-card.css',
 })
 export class ProductCard {
   product = input.required<Product>();
-  removeItemEvent = output<number>();
+  addProductToCartEvent = output<Product>();
 
-  removeItem() {
-    this.removeItemEvent.emit(this.product().id);
+  addProductToCart() {
+    this.addProductToCartEvent.emit(this.product());
   }
 }

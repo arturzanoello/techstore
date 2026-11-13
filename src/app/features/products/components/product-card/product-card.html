@@ -1,2 +1,9 @@
-<p>The product name is {{ product().name }} and the price is {{ product().price }}</p>
-<button (click)="removeItem()">Remove item</button>
+<div class="product">
+  <img [src]="product().imageUrl" alt="Product Image" class="img">
+  <div class="card-body">
+      <h4 class="name">{{ product().name }}</h4>
+      <h4 class="price">{{ product().price | currency:'BRL':'symbol':'1.2-2' }}</h4>
+      <button (click)="addProductToCart()" class="button">Add item</button>
+  </div>
+</div>
+
