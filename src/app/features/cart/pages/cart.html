@@ -1,1 +1,7 @@
-<p>cart works!</p>
+<ul class="ul">
+  @for ( item of cartService.cartItems(); track item.product.id) {
+    <li>
+      <app-cart-card [itemCart]="item" (increaseItemEvent)="cartService.addProduct($event)" (decreaseItemEvent)="cartService.decreaseProduct($event)"></app-cart-card>
+    </li>
+  }
+</ul>

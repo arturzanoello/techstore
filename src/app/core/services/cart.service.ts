@@ -30,6 +30,19 @@ export class CartService {
     });
   }
 
+  decreaseProduct(itemCart: CartItem) {
+    this.items.update((items) => {
+      const isLastItem = items.some((item) => item.quantity === 1);
+
+      if (isLastItem) {
+        return items.filter((item) => item.product.id !== itemCart.product.id);
+      }
+      return items.map((item) =>
+        item.product.id === itemCart.product.id ? { ...item, quantity: item.quantity - 1 } : item,
+      );
+    });
+  }
+
   removeProduct(productId: number) {
     this.items.update((items) => items.filter((item) => item.product.id !== productId));
   }

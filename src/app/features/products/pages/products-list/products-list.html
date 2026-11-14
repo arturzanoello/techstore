@@ -1,8 +1,7 @@
 <ul class="products">
-    @for (product of products; track product.id){
-      <li class="card">
-        <app-product-card [product]="product" (addProductToCartEvent)="addProductToCart($event)" ></app-product-card>
-      </li>
-    }
+  @for (product of products; track product.id) {
+    <li>
+      <app-product-card [product]="product" (addProductToCartEvent)="addProductToCart($event)" />
+    </li>
+  }
 </ul>
-

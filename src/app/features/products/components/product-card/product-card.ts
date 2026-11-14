@@ -1,10 +1,10 @@
 import { Component, input, output } from '@angular/core';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { Product } from '@/core/models/product';
 
 @Component({
   selector: 'app-product-card',
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, NgOptimizedImage],
   templateUrl: './product-card.html',
   styleUrl: './product-card.css',
 })
