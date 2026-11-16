@@ -1,13 +1,16 @@
 <div class="div">
     <img [ngSrc]="itemCart().product.imageUrl" [alt]="itemCart().product.name" width="200" height="200">
-    <div>
+    <div class="info">
       <p> {{ itemCart().product.category }} </p>
       <h4>{{ itemCart().product.name }}</h4>
       <h5> {{ itemCart().product.description }} </h5>
     </div>
-    <div class="counter-container">
-      <button (click)="decreaseItem()" type="button" id="decrease">-</button>
-      <span id="value">{{ itemCart().quantity }}</span>
-      <button (click)="increaseItem()" type="button" id="increase">+</button>
+    <div class="right">
+      <div class="counter-container">
+        <button (click)="decreaseItem()" type="button" id="decrease">-</button>
+        <span id="value">{{ itemCart().quantity }}</span>
+        <button (click)="increaseItem()" type="button" id="increase">+</button>
+      </div>
+      <h4> {{ itemCart().product.price * itemCart().quantity | currency:'BRL':'symbol':'1.2-2' }} </h4>
     </div>
 </div>

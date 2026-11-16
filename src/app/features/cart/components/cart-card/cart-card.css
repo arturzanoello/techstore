@@ -1,10 +1,95 @@
+:host {
+  display: block;
+  container-type: inline-size;
+}
+
 .div {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  gap: 16px;
   width: 100%;
+  padding: 12px;
   background-color: #fff;
   border-radius: 10px;
   border: 0.5px solid #ddd8d8;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  margin-left: auto;
+  margin-right: 20px;
+  flex-shrink: 0;
+}
+
+.counter-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd8d8;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.counter-container button {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  font-size: 1.25rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.counter-container button:hover {
+  background-color: #f1f5f9;
+}
+
+#value {
+  min-width: 32px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.right h4 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+@container (max-width: 640px) {
+  .div img {
+    width: 120px;
+    height: auto;
+  }
+}
+
+@container (max-width: 480px) {
+  .div {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .div img {
+    width: 88px;
+  }
+
+  .right {
+    flex-basis: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+  }
 }

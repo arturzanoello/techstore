@@ -1,11 +1,11 @@
 import { CartItem } from '@/core/models/cart';
 import { Component, input, output } from '@angular/core';
-import { NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage, CurrencyPipe } from '@angular/common';
 import { Product } from '@/core/models/product';
 
 @Component({
   selector: 'app-cart-card',
-  imports: [NgOptimizedImage],
+  imports: [NgOptimizedImage, CurrencyPipe],
   templateUrl: './cart-card.html',
   styleUrl: './cart-card.css',
 })

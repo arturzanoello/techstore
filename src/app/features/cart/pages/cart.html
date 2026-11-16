@@ -1,7 +1,25 @@
-<ul class="ul">
-  @for ( item of cartService.cartItems(); track item.product.id) {
-    <li>
-      <app-cart-card [itemCart]="item" (increaseItemEvent)="cartService.addProduct($event)" (decreaseItemEvent)="cartService.decreaseProduct($event)"></app-cart-card>
-    </li>
-  }
-</ul>
+<section class="cart">
+  <ul class="items">
+    @for ( item of cartService.cartItems(); track item.product.id) {
+      <li>
+        <app-cart-card [itemCart]="item" (increaseItemEvent)="cartService.addProduct($event)" (decreaseItemEvent)="cartService.decreaseProduct($event)"></app-cart-card>
+      </li>
+    }
+  </ul>
+
+  <aside class="summary">
+    <h2 class="summary-title">Resumo do pedido</h2>
+
+    <div class="summary-row">
+      <span>Itens</span>
+      <span>{{ cartService.count() }}</span>
+    </div>
+
+    <div class="summary-row summary-total">
+      <span>Total</span>
+      <span class="summary-total-value">{{ cartService.totalPrice() | currency:'BRL':'symbol':'1.2-2' }}</span>
+    </div>
+
+    <a appButton routerLink="/checkout" class="summary-button">Continue</a>
+  </aside>
+</section>

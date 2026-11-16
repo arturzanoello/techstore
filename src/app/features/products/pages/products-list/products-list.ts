@@ -1,4 +1,4 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ProductCard } from '../../components/product-card/product-card';
 import { Product } from '@/core/models/product';
 import { CartService } from '@/core/services/cart.service';

@@ -1,0 +1,39 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  background-color: #0066b8;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.1s ease;
+}
+
+:host(:hover) {
+  background-color: #004d91;
+}
+
+:host(:active) {
+  transform: scale(0.98);
+}
+
+:host(:focus-visible) {
+  outline: 2px solid #0066b8;
+  outline-offset: 2px;
+}
+
+:host(:disabled) {
+  background-color: #0066b8;
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
