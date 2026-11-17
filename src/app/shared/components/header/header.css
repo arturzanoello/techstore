@@ -8,13 +8,12 @@
 
 .header-inner {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr minmax(0, 480px) 1fr;
   align-items: center;
-  gap: 24px;
-  height: 72px;
+  gap: 8px 24px;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 12px 32px 0;
 }
 
 .logo-link {
@@ -29,16 +28,18 @@
 }
 
 .nav {
+  grid-column: 1 / -1;
   display: flex;
   gap: 8px;
-  height: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
 .nav-link {
   position: relative;
   display: flex;
   align-items: center;
-  padding: 0 12px;
+  padding: 12px;
   border-radius: 6px;
   color: #64748b;
   font-weight: 500;
@@ -55,13 +56,49 @@
   content: '';
   position: absolute;
   right: 12px;
-  bottom: -1px;
+  bottom: 0;
   left: 12px;
   height: 2px;
   background-color: #0f172a;
 }
 
+.about-link {
+  margin-left: auto;
+}
+
+.input {
+  width: 100%;
+  min-width: 0;
+  height: 40px;
+  padding: 0 16px 0 40px;
+  border: 1px solid #e2e8f0;
+  border-radius: 999px;
+  background: #f8fafc url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='8'/><path d='m21 21-4.3-4.3'/></svg>") no-repeat 14px center / 16px;
+  color: #0f172a;
+  font: inherit;
+  font-size: 14px;
+  appearance: none;
+  transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+}
+
+.input::placeholder {
+  color: #94a3b8;
+}
+
+.input:hover {
+  border-color: #cbd5e1;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #2563eb;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgb(37 99 235 / 0.15);
+}
+
 .cart {
+  grid-column: -2;
+  grid-row: 1;
   justify-self: end;
   position: relative;
   display: grid;
@@ -103,11 +140,13 @@
   outline-offset: 2px;
 }
 
-@media (max-width: 600px) {
+.nav-link:focus-visible {
+  outline-offset: -2px;
+}
+
+@media (max-width: 768px) {
   .header-inner {
     grid-template-columns: 1fr auto;
-    row-gap: 4px;
-    height: auto;
     padding: 12px 16px 0;
   }
 
@@ -115,14 +154,7 @@
     height: 28px;
   }
 
-  .nav {
+  .input {
     grid-column: 1 / -1;
-    grid-row: 2;
-    justify-content: center;
-    height: auto;
-  }
-
-  .nav-link {
-    padding: 10px 12px;
   }
 }

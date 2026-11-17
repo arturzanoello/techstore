@@ -1,1 +1,338 @@
-<p>pages works!</p>
+<section class="checkout-page">
+  @if (orderNumber()) {
+    <div class="state-card">
+      <div class="state-icon success">
+        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      </div>
+      <h1 class="state-title">Order confirmed!</h1>
+      <p class="state-text">
+        Thanks for shopping with us. Your order <strong>#{{ orderNumber() }}</strong> was placed and
+        the details were sent to <strong>{{ checkoutForm.get('contact.email')?.value }}</strong>.
+      </p>
+      <a appButton routerLink="/">Continue shopping</a>
+    </div>
+  } @else if (cartService.count() === 0) {
+    <div class="state-card">
+      <div class="state-icon">
+        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2.05 2.05 1.099-.028a1 1 0 0 1 1.008.815l2.69 14.347A1 1 0 0 0 7.83 18H18"/><path d="M4.563 5h16.435a1 1 0 0 1 .981 1.204l-1.026 6.226A2 2 0 0 1 18.962 14H6.25"/><circle cx="18" cy="20" r="2"/><circle cx="8" cy="20" r="2"/></svg>
+      </div>
+      <h1 class="state-title">Your cart is empty</h1>
+      <p class="state-text">Add some products to your cart before going to checkout.</p>
+      <a appButton routerLink="/">Browse products</a>
+    </div>
+  } @else {
+    <a routerLink="/cart" class="back-link">
+      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+      Back to cart
+    </a>
+
+    <h1 class="page-title">Checkout</h1>
+
+    <form class="checkout" [formGroup]="checkoutForm" (ngSubmit)="placeOrder()">
+      <div class="sections">
+        <section class="section" formGroupName="contact">
+          <h2 class="section-title"><span class="step">1</span> Contact</h2>
+
+          <div class="fields">
+            <div class="field">
+              <label for="fullName">Full name</label>
+              <input
+                id="fullName"
+                type="text"
+                formControlName="fullName"
+                autocomplete="name"
+                placeholder="John Smith"
+                [class.invalid]="isInvalid('contact.fullName')"
+              />
+              @if (isInvalid('contact.fullName')) {
+                <span class="error">Enter your full name.</span>
+              }
+            </div>
+
+            <div class="field span-2">
+              <label for="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                formControlName="email"
+                autocomplete="email"
+                placeholder="john@email.com"
+                [class.invalid]="isInvalid('contact.email')"
+              />
+              @if (isInvalid('contact.email')) {
+                @if (checkoutForm.get('contact.email')?.hasError('required')) {
+                  <span class="error">Email is required.</span>
+                } @else {
+                  <span class="error">Enter a valid email address.</span>
+                }
+              }
+            </div>
+
+            <div class="field span-2">
+              <label for="phone">Phone</label>
+              <input
+                id="phone"
+                type="tel"
+                formControlName="phone"
+                autocomplete="tel"
+                placeholder="(11) 91234-5678"
+                [class.invalid]="isInvalid('contact.phone')"
+              />
+              @if (isInvalid('contact.phone')) {
+                <span class="error">Enter a valid phone number.</span>
+              }
+            </div>
+          </div>
+        </section>
+
+        <section class="section" formGroupName="address">
+          <h2 class="section-title"><span class="step">2</span> Shipping address</h2>
+
+          <div class="fields">
+            <div class="field span-1">
+              <label for="zipCode">ZIP code</label>
+              <input
+                id="zipCode"
+                type="text"
+                inputmode="numeric"
+                formControlName="zipCode"
+                autocomplete="postal-code"
+                placeholder="00000-000"
+                maxlength="9"
+                [class.invalid]="isInvalid('address.zipCode')"
+              />
+              @if (isInvalid('address.zipCode')) {
+                <span class="error">Invalid ZIP code.</span>
+              }
+            </div>
+
+            <div class="field span-3">
+              <label for="street">Street</label>
+              <input
+                id="street"
+                type="text"
+                formControlName="street"
+                autocomplete="address-line1"
+                [class.invalid]="isInvalid('address.street')"
+              />
+              @if (isInvalid('address.street')) {
+                <span class="error">Enter your street.</span>
+              }
+            </div>
+
+            <div class="field span-1">
+              <label for="number">Number</label>
+              <input
+                id="number"
+                type="text"
+                formControlName="number"
+                [class.invalid]="isInvalid('address.number')"
+              />
+              @if (isInvalid('address.number')) {
+                <span class="error">Required.</span>
+              }
+            </div>
+
+            <div class="field span-1">
+              <label for="complement">Complement <span class="optional">(optional)</span></label>
+              <input
+                id="complement"
+                type="text"
+                formControlName="complement"
+                autocomplete="address-line2"
+                placeholder="Apt, suite"
+              />
+            </div>
+
+            <div class="field span-2">
+              <label for="neighborhood">Neighborhood</label>
+              <input
+                id="neighborhood"
+                type="text"
+                formControlName="neighborhood"
+                [class.invalid]="isInvalid('address.neighborhood')"
+              />
+              @if (isInvalid('address.neighborhood')) {
+                <span class="error">Enter your neighborhood.</span>
+              }
+            </div>
+
+            <div class="field span-3">
+              <label for="city">City</label>
+              <input
+                id="city"
+                type="text"
+                formControlName="city"
+                autocomplete="address-level2"
+                [class.invalid]="isInvalid('address.city')"
+              />
+              @if (isInvalid('address.city')) {
+                <span class="error">Enter your city.</span>
+              }
+            </div>
+
+            <div class="field span-1">
+              <label for="state">State</label>
+              <select
+                id="state"
+                formControlName="state"
+                autocomplete="address-level1"
+                [class.invalid]="isInvalid('address.state')"
+              >
+                <option value="" disabled>Select</option>
+                @for (state of states; track state) {
+                  <option [value]="state">{{ state }}</option>
+                }
+              </select>
+              @if (isInvalid('address.state')) {
+                <span class="error">Select a state.</span>
+              }
+            </div>
+          </div>
+        </section>
+
+        <section class="section" formGroupName="payment">
+          <h2 class="section-title"><span class="step">3</span> Payment</h2>
+
+          <div class="payment-options">
+            <label class="payment-option">
+              <input type="radio" formControlName="method" value="card" />
+              <span>
+                <span class="payment-option-title">Credit card</span>
+                <span class="payment-option-text">Visa, Mastercard, Elo</span>
+              </span>
+            </label>
+
+            <label class="payment-option">
+              <input type="radio" formControlName="method" value="pix" />
+              <span>
+                <span class="payment-option-title">Pix</span>
+                <span class="payment-option-text">Instant payment</span>
+              </span>
+            </label>
+          </div>
+
+          @if (isCardPayment) {
+            <div class="fields" formGroupName="card">
+              <div class="field">
+                <label for="cardNumber">Card number</label>
+                <input
+                  id="cardNumber"
+                  type="text"
+                  inputmode="numeric"
+                  formControlName="number"
+                  autocomplete="cc-number"
+                  placeholder="1234 5678 9012 3456"
+                  maxlength="19"
+                  [class.invalid]="isInvalid('payment.card.number')"
+                />
+                @if (isInvalid('payment.card.number')) {
+                  <span class="error">Enter a valid 16-digit card number.</span>
+                }
+              </div>
+
+              <div class="field">
+                <label for="cardName">Name on card</label>
+                <input
+                  id="cardName"
+                  type="text"
+                  formControlName="name"
+                  autocomplete="cc-name"
+                  placeholder="JOHN SMITH"
+                  [class.invalid]="isInvalid('payment.card.name')"
+                />
+                @if (isInvalid('payment.card.name')) {
+                  <span class="error">Enter the name printed on the card.</span>
+                }
+              </div>
+
+              <div class="field span-2">
+                <label for="expiry">Expiry date</label>
+                <input
+                  id="expiry"
+                  type="text"
+                  inputmode="numeric"
+                  formControlName="expiry"
+                  autocomplete="cc-exp"
+                  placeholder="MM/YY"
+                  maxlength="5"
+                  [class.invalid]="isInvalid('payment.card.expiry')"
+                />
+                @if (isInvalid('payment.card.expiry')) {
+                  <span class="error">Use the MM/YY format.</span>
+                }
+              </div>
+
+              <div class="field span-2">
+                <label for="cvv">CVV</label>
+                <input
+                  id="cvv"
+                  type="text"
+                  inputmode="numeric"
+                  formControlName="cvv"
+                  autocomplete="cc-csc"
+                  placeholder="123"
+                  maxlength="4"
+                  [class.invalid]="isInvalid('payment.card.cvv')"
+                />
+                @if (isInvalid('payment.card.cvv')) {
+                  <span class="error">Invalid CVV.</span>
+                }
+              </div>
+            </div>
+          } @else {
+            <p class="pix-info">
+              After placing your order, you will receive a Pix code by email. Payment is confirmed in
+              a few seconds.
+            </p>
+          }
+        </section>
+      </div>
+
+      <aside class="summary">
+        <h2 class="summary-title">Order summary</h2>
+
+        <ul class="summary-items">
+          @for (item of cartService.cartItems(); track item.product.id) {
+            <li class="summary-item">
+              <img [src]="item.product.imageUrl" [alt]="item.product.name" width="56" height="56" />
+              <div class="summary-item-info">
+                <span class="summary-item-name">{{ item.product.name }}</span>
+                <span class="summary-item-qty">Qty: {{ item.quantity }}</span>
+              </div>
+              <span class="summary-item-price">
+                {{ item.product.price * item.quantity | currency: 'BRL' : 'symbol' : '1.2-2' }}
+              </span>
+            </li>
+          }
+        </ul>
+
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span>{{ cartService.totalPrice() | currency: 'BRL' : 'symbol' : '1.2-2' }}</span>
+        </div>
+
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span class="free">Free</span>
+        </div>
+
+        <div class="summary-row summary-total">
+          <span>Total</span>
+          <span class="summary-total-value">
+            {{ cartService.totalPrice() | currency: 'BRL' : 'symbol' : '1.2-2' }}
+          </span>
+        </div>
+
+        <button appButton type="submit" class="submit-button" [disabled]="isSubmitting()">
+          @if (isSubmitting()) {
+            <span class="spinner"></span>
+            Placing order...
+          } @else {
+            Place order
+          }
+        </button>
+      </aside>
+    </form>
+  }
+</section>

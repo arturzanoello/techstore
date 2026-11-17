@@ -8,6 +8,13 @@
   gap: 24px;
 }
 
+.empty {
+  grid-column: 1 / -1;
+  padding: 64px 16px;
+  color: #64748b;
+  text-align: center;
+}
+
 @media (max-width: 600px) {
   .products {
     padding: 16px;

@@ -12,7 +12,7 @@ import { Button } from '@/shared/components/button/button';
 export class About {
   protected readonly lineup = [
     {
-      category: 'Notebooks',
+      category: 'Laptops',
       name: 'Apple MacBook Pro 14"',
       imageUrl:
         'https://cdn.dummyjson.com/product-images/laptops/apple-macbook-pro-14-inch-space-grey/thumbnail.webp',

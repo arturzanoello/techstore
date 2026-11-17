@@ -42,4 +42,8 @@ export class CartService {
       );
     });
   }
+
+  clear() {
+    this.items.set([]);
+  }
 }

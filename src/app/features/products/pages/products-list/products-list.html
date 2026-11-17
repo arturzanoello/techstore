@@ -1,7 +1,9 @@
 <ul class="products">
-  @for (product of products; track product.id) {
+  @for (product of filteredProducts(); track product.id) {
     <li>
       <app-product-card [product]="product" (addProductToCartEvent)="addProductToCart($event)" />
     </li>
+  } @empty {
+    <li class="empty">No products found.</li>
   }
 </ul>
